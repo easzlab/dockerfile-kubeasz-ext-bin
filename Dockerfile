@@ -9,7 +9,10 @@ RUN set -x \
     && mkdir -p /ext-bin \
     && git config --global advice.detachedHead false \
     && git clone --depth 1 -b ${CFSSL_VER} https://github.com/cloudflare/cfssl.git \
-    && cd cfssl && make && cd bin \
+    && cd cfssl \
+    && go build -tags 'netgo,osusergo,sqlite_omit_load_extension' -ldflags '-s -w -extldflags "-static"' cmd/cfssl/cfssl.go \
+    && go build -tags 'netgo,osusergo,sqlite_omit_load_extension' -ldflags '-s -w -extldflags "-static"' cmd/cfssljson/cfssljson.go \
+    && go build -tags 'netgo,osusergo,sqlite_omit_load_extension' -ldflags '-s -w -extldflags "-static"' cmd/cfssl-certinfo/cfssl-certinfo.go \
     && mv cfssljson cfssl-certinfo cfssl /ext-bin \
     && cd /go \
     \
@@ -36,7 +39,10 @@ RUN set -x \
     && mkdir -p /ext-bin /extra/containerd-bin \
     && git config --global advice.detachedHead false \
     && git clone --depth 1 -b ${CNI_VER} https://github.com/containernetworking/plugins.git \
-    && cd plugins && ./build_linux.sh && cd bin \
+    && cd plugins \
+    && sed -i "/export GOFLAGS/d" ./build_linux.sh \
+    && export GOFLAGS="${GOFLAGS} -ldflags '-s -w -extldflags \"-static\"'" \
+    && ./build_linux.sh && cd bin \
     && mv bridge host-local loopback portmap tuning /ext-bin \
     && cd /go \
     \
