@@ -40,7 +40,7 @@ RUN set -x \
     && git config --global advice.detachedHead false \
     && git clone --depth 1 -b ${CNI_VER} https://github.com/containernetworking/plugins.git \
     && cd plugins \
-    && sed -i "s%build %build -ldflags '-s -w -extldflags \"-static\"' %g" ./build_linux.sh \
+    && sed -i "s%build %build -tags 'netgo,osusergo' -ldflags '-s -w -extldflags \"-static\"' %g" ./build_linux.sh \
     && ./build_linux.sh && cd bin \
     && mv bridge host-local loopback portmap tuning /ext-bin \
     && cd /go \
