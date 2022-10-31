@@ -47,18 +47,8 @@ RUN set -x \
     \
     && git clone --depth 1 -b ${HELM_VER} https://github.com/helm/helm.git \
     && cd helm && make \
-    && mv bin/helm /ext-bin/ \
-    && cd /go \
-    \
-    && git clone --depth 1 -b ${CRICTL_VER} https://github.com/kubernetes-sigs/cri-tools.git \
-    && cd cri-tools && make \
-    && mv build/bin/crictl /extra/containerd-bin \
-    && cd /go \
-    \
-    && apt update && apt install libseccomp-dev -y \
-    && git clone --depth 1 -b ${RUNC_VER} https://github.com/opencontainers/runc.git \
-    && cd runc && make \
-    && mv ./runc /extra/containerd-bin
+    && mv bin/helm /ext-bin/
+
 # download containerd
 COPY multi-platform-download.sh .
 RUN sh -x ./multi-platform-download.sh
