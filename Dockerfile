@@ -34,17 +34,10 @@ ENV HELM_VER=v3.9.4
 ENV CRICTL_VER=v1.25.0
 ENV RUNC_VER=v1.1.4
 ENV CONTAINERD_VER=1.6.8
-ENV DOCKER_COMPOSE_VER=1.28.6
+ENV DOCKER_COMPOSE_VER=v2.12.2
 RUN set -x \
     && mkdir -p /ext-bin /extra/containerd-bin \
     && git config --global advice.detachedHead false \
-    && git clone --depth 1 -b ${CNI_VER} https://github.com/containernetworking/plugins.git \
-    && cd plugins \
-    && sed -i "s%build %build -tags 'netgo,osusergo' -ldflags '-s -w -extldflags \"-static\"' %g" ./build_linux.sh \
-    && ./build_linux.sh && cd bin \
-    && mv bridge host-local loopback portmap tuning /ext-bin \
-    && cd /go \
-    \
     && git clone --depth 1 -b ${HELM_VER} https://github.com/helm/helm.git \
     && cd helm && make \
     && mv bin/helm /ext-bin/
@@ -54,8 +47,8 @@ COPY multi-platform-download.sh .
 RUN sh -x ./multi-platform-download.sh
 
 # release image
-FROM alpine:3.12
-ENV EXT_BIN_VER=1.4.0
+FROM alpine:3.16
+ENV EXT_BIN_VER=1.6.0
 
 COPY --from=quay.io/coreos/etcd:v3.5.4 /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
 COPY --from=calico/ctl:v3.23.3 /calicoctl /extra/
