@@ -13,19 +13,7 @@ RUN set -x \
     && go build -tags 'netgo,osusergo,sqlite_omit_load_extension' -ldflags '-s -w -extldflags "-static"' cmd/cfssl/cfssl.go \
     && go build -tags 'netgo,osusergo,sqlite_omit_load_extension' -ldflags '-s -w -extldflags "-static"' cmd/cfssljson/cfssljson.go \
     && go build -tags 'netgo,osusergo,sqlite_omit_load_extension' -ldflags '-s -w -extldflags "-static"' cmd/cfssl-certinfo/cfssl-certinfo.go \
-    && mv cfssljson cfssl-certinfo cfssl /ext-bin \
-    && cd /go \
-    \
-    && CILIUM_CLI_VER=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/master/stable.txt) \
-    && git clone --depth 1 -b ${CILIUM_CLI_VER} https://github.com/cilium/cilium-cli.git \
-    && cd cilium-cli && make install \
-    && mv /usr/local/bin/cilium /ext-bin/ \
-    && cd /go \
-    \
-    && HUBBLE_VER=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/stable.txt) \
-    && git clone --depth 1 -b ${HUBBLE_VER} https://github.com/cilium/hubble.git \
-    && cd hubble && make install \
-    && mv /usr/local/bin/hubble /ext-bin/
+    && mv cfssljson cfssl-certinfo cfssl /ext-bin
 
 # build use golang:1.18
 FROM golang:1.18 as builder_118
@@ -40,7 +28,7 @@ RUN set -x \
     && git config --global advice.detachedHead false \
     && git clone --depth 1 -b ${HELM_VER} https://github.com/helm/helm.git \
     && cd helm && make \
-    && mv bin/helm /ext-bin/
+    && mv bin/helm /ext-bin
 
 # download containerd
 COPY multi-platform-download.sh .
@@ -48,7 +36,7 @@ RUN sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.16
-ENV EXT_BIN_VER=1.6.0
+ENV EXT_BIN_VER=1.6.1
 
 COPY --from=quay.io/coreos/etcd:v3.5.4 /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
 COPY --from=calico/ctl:v3.23.3 /calicoctl /extra/
