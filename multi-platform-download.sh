@@ -35,7 +35,8 @@ cd /tmp && mv bridge host-local loopback portmap tuning /ext-bin && \
 rm -rf "cni-plugins-linux-${ARCH}-${CNI_VER}.tgz"
 
 wget https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VER}/docker-compose-Linux-${ARC} && \
-mv docker-compose-Linux-${ARC} /ext-bin/docker-compose
+mv docker-compose-Linux-${ARC} /ext-bin/docker-compose && \
+chmod +x /ext-bin/docker-compose
 
 CILIUM_CLI_VER=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/master/stable.txt)
 wget https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VER}/cilium-linux-${ARCH}.tar.gz && \
