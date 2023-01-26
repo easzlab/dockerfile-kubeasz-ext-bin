@@ -4,7 +4,7 @@
 # @ref:     https://github.com/kubernetes/kubernetes/blob/master/build/dependencies.yaml
 # build use golang:1.19
 FROM golang:1.19 as builder_119
-ENV CFSSL_VER=v1.6.2
+ENV CFSSL_VER=v1.6.3
 RUN set -x \
     && mkdir -p /ext-bin \
     && git config --global advice.detachedHead false \
@@ -28,11 +28,11 @@ RUN sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.16
-ENV EXT_BIN_VER=1.6.4
+ENV EXT_BIN_VER=1.6.5
 
 COPY --from=quay.io/coreos/etcd:v3.5.5 /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
 COPY --from=calico/ctl:v3.23.5 /calicoctl /extra/
-COPY --from=easzlab/kubeasz-ext-build:1.1.0 /ext-bin/* /extra/
+COPY --from=easzlab/kubeasz-ext-build:1.2.1 /ext-bin/* /extra/
 COPY --from=builder_119 /ext-bin/* /extra/
 COPY --from=downloader_119 /ext-bin/* /extra/
 COPY --from=downloader_119 /extra/containerd-bin/* /extra/containerd-bin/
