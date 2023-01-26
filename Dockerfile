@@ -28,10 +28,10 @@ RUN sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.16
-ENV EXT_BIN_VER=1.6.5
+ENV EXT_BIN_VER=1.6.6
 
 COPY --from=quay.io/coreos/etcd:v3.5.5 /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
-COPY --from=calico/ctl:v3.23.5 /calicoctl /extra/
+COPY --from=calico/ctl:v3.24.5 /calicoctl /extra/
 COPY --from=easzlab/kubeasz-ext-build:1.2.1 /ext-bin/* /extra/
 COPY --from=builder_119 /ext-bin/* /extra/
 COPY --from=downloader_119 /ext-bin/* /extra/
