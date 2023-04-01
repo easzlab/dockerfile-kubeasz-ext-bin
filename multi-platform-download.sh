@@ -15,7 +15,7 @@ case "$ARC" in
       ;;
 esac
 
-mkdir -p /ext-bin /extra/containerd-bin
+mkdir -p /ext-bin /extra/containerd-bin /extra/cni-bin
 
 wget https://get.helm.sh/helm-${HELM_VER}-linux-${ARCH}.tar.gz && \
 tar zxf helm-${HELM_VER}-linux-${ARCH}.tar.gz -C /tmp && \
@@ -35,8 +35,7 @@ wget https://github.com/opencontainers/runc/releases/download/${RUNC_VER}/runc.$
 mv runc.${ARCH} /extra/containerd-bin/runc
 
 wget "https://github.com/containernetworking/plugins/releases/download/${CNI_VER}/cni-plugins-linux-${ARCH}-${CNI_VER}.tgz" && \
-tar zxf "cni-plugins-linux-${ARCH}-${CNI_VER}.tgz" -C /tmp && \
-cd /tmp && mv bridge host-local loopback portmap tuning /ext-bin && \
+tar zxf "cni-plugins-linux-${ARCH}-${CNI_VER}.tgz" -C /extra/cni-bin && \
 rm -rf "cni-plugins-linux-${ARCH}-${CNI_VER}.tgz"
 
 wget https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VER}/docker-compose-Linux-${ARC} && \
