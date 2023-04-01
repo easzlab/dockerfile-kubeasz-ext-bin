@@ -28,7 +28,7 @@ rm -rf containerd-${CONTAINERD_VER}-linux-${ARCH}.tar.gz
 
 wget https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VER}/crictl-${CRICTL_VER}-linux-${ARCH}.tar.gz && \
 tar zxf crictl-${CRICTL_VER}-linux-${ARCH}.tar.gz && \
-mv crictl /extra/containerd-bin && \
+mv crictl /ext-bin && \
 rm -rf crictl-${CRICTL_VER}-linux-${ARCH}.tar.gz
 
 wget https://github.com/opencontainers/runc/releases/download/${RUNC_VER}/runc.${ARCH} && \

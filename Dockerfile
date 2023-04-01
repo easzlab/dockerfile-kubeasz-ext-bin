@@ -28,7 +28,7 @@ RUN sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.16
-ENV EXT_BIN_VER=1.7.0
+ENV EXT_BIN_VER=1.7.1
 
 COPY --from=quay.io/coreos/etcd:v3.5.6 /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
 COPY --from=calico/ctl:v3.24.5 /calicoctl /extra/
