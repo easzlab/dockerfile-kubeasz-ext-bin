@@ -42,6 +42,10 @@ wget https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VER}/d
 mv docker-compose-Linux-${ARC} /ext-bin/docker-compose && \
 chmod +x /ext-bin/docker-compose
 
+wget "https://github.com/projectcalico/calico/releases/download/${CALICOCTL_VER}/calicoctl-linux-${ARCH}" && \
+mv calicoctl-linux-${ARCH} /ext-bin/calicoctl && \
+chmod +x /ext-bin/calicoctl
+
 CILIUM_CLI_VER=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/master/stable.txt)
 wget https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VER}/cilium-linux-${ARCH}.tar.gz && \
 tar zxf cilium-linux-${ARCH}.tar.gz -C /ext-bin

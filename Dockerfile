@@ -23,17 +23,16 @@ ENV CRICTL_VER=v1.31.1
 ENV RUNC_VER=v1.1.15
 ENV CONTAINERD_VER=1.7.23
 ENV DOCKER_COMPOSE_VER=v2.30.1
+ENV CALICOCTL_VER=v3.28.2
 COPY multi-platform-download.sh .
 RUN sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.16
-ENV EXT_BIN_VER=1.11.0
+ENV EXT_BIN_VER=1.11.1
 
 # https://github.com/etcd-io/etcd
 COPY --from=quay.io/coreos/etcd:v3.5.16 /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
-# https://docs.tigera.io/calico/latest/about/
-COPY --from=calico/ctl:v3.28.2 /calicoctl /extra/
 COPY --from=easzlab/kubeasz-ext-build:1.3.0 /ext-bin/* /extra/
 COPY --from=builder /ext-bin/* /extra/
 COPY --from=downloader /ext-bin/* /extra/
