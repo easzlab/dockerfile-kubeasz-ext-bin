@@ -17,22 +17,22 @@ RUN set -x \
 
 # downloader use golang:1.22
 FROM golang:1.22 as downloader
-ENV CNI_VER=v1.6.2
-ENV HELM_VER=v3.17.2
-ENV CRICTL_VER=v1.32.0
+ENV CNI_VER=v1.7.1
+ENV HELM_VER=v3.17.3
+ENV CRICTL_VER=v1.33.0
 ENV RUNC_VER=v1.2.6
-ENV CONTAINERD_VER=2.0.4
+ENV CONTAINERD_VER=2.1.0
 ENV DOCKER_COMPOSE_VER=v2.32.4
-ENV CALICOCTL_VER=v3.28.3
+ENV CALICOCTL_VER=v3.28.4
 COPY multi-platform-download.sh .
 RUN sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.16
-ENV EXT_BIN_VER=1.12.1
+ENV EXT_BIN_VER=1.12.2
 
 # https://github.com/etcd-io/etcd
-COPY --from=quay.io/coreos/etcd:v3.5.20 /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
+COPY --from=quay.io/coreos/etcd:v3.5.21 /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
 COPY --from=easzlab/kubeasz-ext-build:1.3.0 /ext-bin/* /extra/
 COPY --from=builder /ext-bin/* /extra/
 COPY --from=downloader /ext-bin/* /extra/
