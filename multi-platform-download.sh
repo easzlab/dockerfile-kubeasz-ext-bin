@@ -21,7 +21,7 @@ wget https://get.helm.sh/helm-${HELM_VER}-linux-${ARCH}.tar.gz && \
 tar zxf helm-${HELM_VER}-linux-${ARCH}.tar.gz -C /tmp && \
 mv /tmp/linux-${ARCH}/helm /ext-bin
 
-wget https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VER}/containerd-${CONTAINERD_VER}-linux-${ARCH}.tar.gz && \
+wget https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VER}/containerd-static-${CONTAINERD_VER}-linux-${ARCH}.tar.gz && \
 tar zxf containerd-${CONTAINERD_VER}-linux-${ARCH}.tar.gz -C /tmp && \
 mv /tmp/bin/* /extra/containerd-bin && \
 rm -rf containerd-${CONTAINERD_VER}-linux-${ARCH}.tar.gz
