@@ -29,7 +29,7 @@ RUN sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.16
-ENV EXT_BIN_VER=1.12.4
+ENV EXT_BIN_VER=1.12.5
 
 # https://github.com/etcd-io/etcd
 COPY --from=quay.io/coreos/etcd:v3.5.21 /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
