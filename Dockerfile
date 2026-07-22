@@ -4,7 +4,7 @@
 # @ref:     https://github.com/kubernetes/kubernetes/blob/master/build/dependencies.yaml
 
 # downloader use ubuntu:22.04
-FROM ubuntu:22.04 as downloader
+FROM alpine:3.22 as downloader
 ENV CNI_VER=v1.9.1
 ENV HELM_VER=v4.2.3
 ENV CRICTL_VER=v1.36.0
