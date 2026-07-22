@@ -46,10 +46,10 @@ wget "https://github.com/projectcalico/calico/releases/download/${CALICOCTL_VER}
 mv calicoctl-linux-${ARCH} /ext-bin/calicoctl && \
 chmod +x /ext-bin/calicoctl || exit 1
 
-CILIUM_CLI_VER=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/master/stable.txt)
+#CILIUM_CLI_VER=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/master/stable.txt)
 wget https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VER}/cilium-linux-${ARCH}.tar.gz && \
 tar zxf cilium-linux-${ARCH}.tar.gz -C /ext-bin || exit 1
 
-HUBBLE_VER=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/stable.txt)
-wget https://github.com/cilium/hubble/releases/download/${HUBBLE_VER}/hubble-linux-${ARCH}.tar.gz && \
+#HUBBLE_CLI_VER=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/stable.txt)
+wget https://github.com/cilium/hubble/releases/download/${HUBBLE_CLI_VER}/hubble-linux-${ARCH}.tar.gz && \
 tar zxf hubble-linux-${ARCH}.tar.gz -C /ext-bin || exit 1

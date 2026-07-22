@@ -12,12 +12,10 @@ ENV RUNC_VER=v1.5.1
 ENV CONTAINERD_VER=2.3.3
 ENV DOCKER_COMPOSE_VER=v5.3.1
 ENV CALICOCTL_VER=v3.32.1
+ENV CILIUM_CLI_VER=v0.19.6
+ENV HUBBLE_CLI_VER=v1.19.4
 COPY multi-platform-download.sh .
-RUN set -ex \
-    && apk update \
-    && apk add --no-cache \
-    && curl \
-    && sh -x ./multi-platform-download.sh
+RUN  sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.22
