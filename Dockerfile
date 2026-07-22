@@ -17,24 +17,24 @@ RUN set -x \
 
 # downloader use golang:1.22
 FROM golang:1.22 as downloader
-ENV CNI_VER=v1.8.0
-ENV HELM_VER=v3.19.0
-ENV CRICTL_VER=v1.34.0
-ENV RUNC_VER=v1.3.1
-ENV CONTAINERD_VER=2.1.4
-ENV DOCKER_COMPOSE_VER=v2.39.3
-ENV CALICOCTL_VER=v3.28.4
+ENV CNI_VER=v1.9.1
+ENV HELM_VER=v4.2.3
+ENV CRICTL_VER=v1.36.0
+ENV RUNC_VER=v1.5.1
+ENV CONTAINERD_VER=2.3.3
+ENV DOCKER_COMPOSE_VER=v5.3.1
+ENV CALICOCTL_VER=v3.32.1
 COPY multi-platform-download.sh .
 RUN sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.16
-ENV EXT_BIN_VER=1.13.3
+ENV EXT_BIN_VER=1.14.0
 
 # https://github.com/etcd-io/etcd
-COPY --from=quay.io/coreos/etcd:v3.6.7 /usr/local/bin/etcdutl /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
-COPY --from=easzlab/kubeasz-ext-build:1.3.0 /ext-bin/* /extra/
-COPY --from=apecloud/minio:RELEASE.2024-06-29T01-20-47Z /bin/minio /bin/mc /extra/
+COPY --from=quay.io/coreos/etcd:v3.7.0 /usr/local/bin/etcdutl /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
+COPY --from=easzlab/kubeasz-ext-build:1.4.2 /ext-bin/* /extra/
+COPY --from=apecloud/minio:RELEASE.2025-10-15T17-29-55Z /bin/minio /bin/mc /extra/
 COPY --from=builder /ext-bin/* /extra/
 COPY --from=downloader /ext-bin/* /extra/
 COPY --from=downloader /extra/containerd-bin/* /extra/containerd-bin/
