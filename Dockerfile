@@ -13,7 +13,11 @@ ENV CONTAINERD_VER=2.3.3
 ENV DOCKER_COMPOSE_VER=v5.3.1
 ENV CALICOCTL_VER=v3.32.1
 COPY multi-platform-download.sh .
-RUN sh -x ./multi-platform-download.sh
+RUN set -ex \
+    && apk update \
+    && apk add --no-cache \
+    && curl \
+    && sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.22
