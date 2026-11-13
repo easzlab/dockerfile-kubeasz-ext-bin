@@ -5,21 +5,21 @@
 
 # downloader use ubuntu:22.04
 FROM alpine:3.22 as downloader
-ENV CNI_VER=v1.9.1
-ENV RUNC_VER=v1.5.2
+ENV CNI_VER=v1.10.0
+ENV RUNC_VER=v1.5.3
 ENV CONTAINERD_VER=2.3.7
-ENV CALICOCTL_VER=v3.32.2
-ENV CILIUM_CLI_VER=v0.20.1
-ENV HUBBLE_CLI_VER=v1.20.2
-ENV HELM_VER=v4.3.1
+ENV CALICOCTL_VER=v3.32.4
+ENV CILIUM_CLI_VER=v0.20.3
+ENV HUBBLE_CLI_VER=v1.20.4
+ENV HELM_VER=v4.3.2
 ENV CRICTL_VER=v1.37.0
-ENV DOCKER_COMPOSE_VER=v5.6.1
+ENV DOCKER_COMPOSE_VER=v5.7.1
 COPY multi-platform-download.sh .
 RUN  sh -x ./multi-platform-download.sh
 
 # release image
 FROM alpine:3.22
-ENV EXT_BIN_VER=1.14.3
+ENV EXT_BIN_VER=1.14.4
 
 # https://github.com/etcd-io/etcd
 COPY --from=quay.io/coreos/etcd:v3.7.3 /usr/local/bin/etcdutl /usr/local/bin/etcdctl /usr/local/bin/etcd /extra/
